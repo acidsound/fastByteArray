@@ -9,11 +9,4 @@
 ** written permission of Adobe.
 */
 
-float checkFirstByte(const unsigned char* buffer1, const unsigned char* buffer2,
-    int buffersize);
-
-void summingBytes(const unsigned char* buffer1, const unsigned char* buffer2,
-    int buffersize, unsigned char* outputbuffer);
 void summingFloats(const unsigned char* buffers, int buffersize, int count, unsigned char* outputbuffer);
-
-int examinBytes(const unsigned char* buffer, int buffersize);

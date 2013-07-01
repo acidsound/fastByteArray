@@ -11,20 +11,6 @@
 #include "bytelib.h"
 #include <stdio.h>
 
-float checkFirstByte(const unsigned char* buffer1, const unsigned char* buffer2,
-    int buffersize) {
-    int i=0;
-    return *(float*)(buffer1+i)+*(float*)(buffer2+i);;
-}
-
-void summingBytes(const unsigned char* buffer1, const unsigned char* buffer2,
-    int buffersize, unsigned char* outputbuffer) {
-    int i;
-    for (i=0; i<buffersize; i+=4) {
-        *(float*)(outputbuffer+i) = *(float*)(buffer1+i)+*(float*)(buffer2+i);
-    }
-}
-
 void summingFloats(const unsigned char* buffers, int buffersize, int count, unsigned char* outputbuffer) {
     int i,j;
     float sum;
@@ -35,13 +21,4 @@ void summingFloats(const unsigned char* buffers, int buffersize, int count, unsi
         }
         *(float*)(outputbuffer+i) = sum;
     }
-}
-
-int examinBytes(const unsigned char* buffer, int buffersize) {
-    int i;
-    int result=0;
-    for (i=0; i<buffersize; i++) {
-        result += *buffer;
-    }
-    return result;
 }
