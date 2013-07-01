@@ -48,6 +48,10 @@ public class FlasccExam extends Sprite {
   }
 
   private function initCode(e:Event):void {
+    var mem:String;
+    mem = Number(System.totalMemory / 1024 / 1024).toFixed(2) + 'Mb';
+    trace( mem ); // eg traces “24.94Mb”
+
     tf = new TextField();
     addChild(tf);
     tf.appendText("SWC Output:\n");
@@ -75,6 +79,9 @@ public class FlasccExam extends Sprite {
     }
     trace("convert C Binary Done: " + (getTimer() - t));
 
+    mem = Number(System.totalMemory / 1024 / 1024).toFixed(2) + 'Mb';
+    trace( mem ); // eg traces “24.94Mb”
+
     mixdownTrack.length = trackLength;
     mixdownTrack.endian = Endian.LITTLE_ENDIAN;
 
@@ -100,7 +107,7 @@ public class FlasccExam extends Sprite {
     soundChannel=sound.play();
     soundChannel.addEventListener(Event.SOUND_COMPLETE, onSoundCompleteHandler);
 
-    var mem:String = Number( System.totalMemory / 1024 / 1024 ).toFixed( 2 ) + 'Mb';
+    mem = Number(System.totalMemory / 1024 / 1024).toFixed(2) + 'Mb';
     trace( mem ); // eg traces “24.94Mb”
   }
 
