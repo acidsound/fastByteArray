@@ -17,7 +17,7 @@ void summingFloats(const unsigned char* buffers, int buffersize, int count, unsi
     for (i=0; i<buffersize; i+=4) {
         sum = 0;
         for (j=0; j<count; j++) {
-            sum+= *(float*)(buffers+i+(j*buffersize));
+            sum+= .7*(*(float*)(buffers+i+(j*buffersize)));
         }
         *(float*)(outputbuffer+i) = sum;
     }
