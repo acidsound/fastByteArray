@@ -48,9 +48,7 @@ public class FlasccExam extends Sprite {
   }
 
   private function initCode(e:Event):void {
-    var mem:String;
-    mem = Number(System.totalMemory / 1024 / 1024).toFixed(2) + 'Mb';
-    trace( mem ); // eg traces “24.94Mb”
+    trace( memoryInformation() ); // eg traces “24.94Mb”
 
     tf = new TextField();
     addChild(tf);
@@ -59,19 +57,19 @@ public class FlasccExam extends Sprite {
     t = getTimer();
     var track:ByteArray;
     var l:uint;
-    for each (var sound:Sound in TrackSources) {
+    for each (var trackSource:Sound in TrackSources) {
       track = Tracks[Tracks.push(new ByteArray()) - 1];
-      l = sound.bytesTotal;
+      l = trackSource.bytesTotal;
       track.endian=Endian.LITTLE_ENDIAN;
       trace(Tracks.indexOf(track)+":" + l);
-      sound.extract(track, l, 0);
+      trackSource.extract(track, l, 0);
     }
     trace("extract Sound Done: " + (getTimer() - t));
     var i:uint;
 
     trace("convert C Binary");
     t = getTimer();
-    var trackLength = Tracks[0].length;
+    var trackLength:uint = Tracks[0].length;
     var TracksPtr:int = CModule.malloc(Tracks.length * trackLength);
     for (i = 0; i < Tracks.length; i++) {
       Tracks[i].position = 0;
@@ -79,8 +77,7 @@ public class FlasccExam extends Sprite {
     }
     trace("convert C Binary Done: " + (getTimer() - t));
 
-    mem = Number(System.totalMemory / 1024 / 1024).toFixed(2) + 'Mb';
-    trace( mem ); // eg traces “24.94Mb”
+    trace( memoryInformation() ); // eg traces “24.94Mb”
 
     mixdownTrack.length = trackLength;
     mixdownTrack.endian = Endian.LITTLE_ENDIAN;
@@ -107,8 +104,13 @@ public class FlasccExam extends Sprite {
     soundChannel=sound.play();
     soundChannel.addEventListener(Event.SOUND_COMPLETE, onSoundCompleteHandler);
 
-    mem = Number(System.totalMemory / 1024 / 1024).toFixed(2) + 'Mb';
-    trace( mem ); // eg traces “24.94Mb”
+    trace( memoryInformation() ); // eg traces “24.94Mb”
+  }
+
+  private function memoryInformation():String {
+    var mem:String;
+    mem = Number(System.privateMemory / 1024 / 1024).toFixed(2) + 'Mb' + " // " + Number(System.freeMemory / 1024 / 1024).toFixed(2) + 'Mb';
+    return mem;
   }
 
   private function onSoundCompleteHandler(event:Event):void {

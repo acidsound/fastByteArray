@@ -1,4 +1,4 @@
-FLASCC = ../../../../../flascc1.0/sdk
+FLASCC = ../../../../../CrossBridge/sdk
 LIBNAME = bytelib
 AS3COMPILER= asc2.jar
 $?nativepath=$(abspath $(1))
